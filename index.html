@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vic John Calmada — Portfolio</title>
+  <style>
+    :root {
+      --primary: #0f172a;
+      --accent: #06b6d4;
+      --muted: #6b7280;
+      --card: #ffffff;
+    }
+
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      margin: 0;
+      background: #f8fafc;
+      color: var(--primary);
+      line-height: 1.5;
+      overflow-x: hidden;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 32px auto;
+      padding: 24px;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: slideInLeft 1s ease-out;
+    }
+
+    .avatar img {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      border: 3px solid #eef6f7;
+      object-fit: cover;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      transition: color 0.3s ease;
+    }
+
+    h1:hover {
+      color: var(--accent);
+    }
+
+    p.tag {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      animation: slideInRight 1s ease-out;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 8px;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    main {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.06);
+      transition: all 0.4s ease, opacity 0.6s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 22px rgba(2, 6, 23, 0.1);
+    }
+
+    .section-title {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+    }
+
+    .section-title:hover {
+      color: var(--accent);
+    }
+
+    .about p { margin: 10px 0; }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill {
+      background: #eef6f7;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    .skill:hover {
+      background: var(--accent);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .resume-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .resume-item {
+      padding: 12px 0;
+      border-bottom: 1px dashed #eef2f7;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .resume-item:hover {
+      transform: translateX(5px);
+      color: var(--accent);
+    }
+
+    .resume-item:last-child { border-bottom: none; }
+
+    .muted { color: var(--muted); font-size: 13px; }
+
+    .contact-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .contact-item strong { min-width: 80px; }
+
+    footer {
+      margin-top: 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; }
+      header { flex-direction: column; align-items: flex-start; }
+      .avatar img { width: 64px; height: 64px; }
+      nav { width: 100%; justify-content: flex-start; }
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 16px; }
+      h1 { font-size: 18px; }
+      nav a { font-size: 14px; padding: 6px 8px; }
+      .card { padding: 14px; }
+      .skill { font-size: 12px; padding: 6px 10px; }
+    }
+
+    /* Keyframe animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(-50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="avatar">
+          <img src="/1.jpg" alt="Vic John Calmada">
+        </div>
+        <div>
+          <h1>Vic John Calmada</h1>
+          <p class="tag">Administrative Assistant</p>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <div id="about" class="card about">
+          <div class="section-title"><b>About Me</b></div>
+          <p>Detail-oriented and highly organized Administrative Assistant with 1+ year of experience in office administration, accounting support, production coordination, and billing. Skilled in Microsoft Office, record management, and client communication. Recognized for multitasking, problem-solving, and working effectively under pressure.</p>
+        </div>
+
+        <div id="projects" class="card" style="margin-top:18px">
+          <div class="section-title"><b>Experience</b></div>
+          <div class="projects">
+            <div class="project">
+              <h4>Administrative Assistant</h4>
+              <div class="muted">725 Shelterwork Inc., Antipolo, Rizal • Feb 2024 – June 2025</div>
+              <p>Handled daily office administration, billing cycles, recordkeeping, and client correspondence. Supported accounting with invoice preparation and reconciliations.</p>
+            </div>
+
+            <div class="project">
+              <h4>Production Coordinator (Support)</h4>
+              <div class="muted">725 Shelterwork Inc., Antipolo, Rizal • Feb 2024 – June 2025</div>
+              <p>Created an organized invoice template and simple checklist that reduced errors and sped up approvals.</p>
+            </div>
+
+            <div class="project">
+              <h4>Billing & Process</h4>
+              <div class="muted">725 Shelterwork Inc., Antipolo, Rizal • Feb 2024 – June 2025</div>
+              <p>Created an organized invoice template and simple checklist that reduced errors and sped up approvals.</p>
+            </div>
+
+            <div class="project">
+              <h4>Records Clean-up Initiative</h4>
+              <div class="muted">725 Shelterwork Inc., Antipolo, Rizal • Feb 2024 – June 2025</div>
+              <p>Executed a records standardization effort that improved retrieval time and filing accuracy.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="education" class="card" style="margin-top:18px">
+          <div class="section-title">Education</div>
+          <div>
+            <strong>Bachelor of Science in Information Technology</strong>
+            <div class="muted">Colegio De San Gabriel Arcangel • 2018 – 2022</div>
+            <p>Major in Computer Programming</p>
+          </div>
+          <div>
+            <strong>Senior High School</strong>
+            <div class="muted">Yverdon de Pestallozi School, Inc.  • 2016 – 2018</div>
+            <p>General Academic Strand</p>
+          </div>
+        </div>
+      </section>
+
+      <aside>
+        <div id="skills" class="card">
+          <div class="section-title"><b>Skills</b></div>
+          <div class="skills">
+            <span class="skill">Administrative Support</span>
+            <span class="skill">Office Management</span>
+            <span class="skill">Billing & Accounting</span>
+            <span class="skill">Recordkeeping</span>
+            <span class="skill">Client Communication</span>
+            <span class="skill">Time Management</span>
+            <span class="skill">Multitasking</span>
+            <span class="skill">Microsoft Word</span>
+            <span class="skill">Microsoft Excel</span>
+            <span class="skill">PowerPoint</span>
+            <span class="skill">Basic Graphic Design</span>
+            <span class="skill">Manage Email Inboxes</span>
+            <span class="skill">Organized Calendar</span>
+            <span class="skill">Schedule Social Post</span>
+            <span class="skill">Data Entry</span>
+            <span class="skill">Basic Online Research</span>
+          </div>
+
+          <div style="margin-top:14px">
+            <div class="section-title">Tools</div>
+            <ul class="resume-list">
+              <li class="resume-item"><strong>Microsoft Office</strong><div class="muted">Word, Excel, PowerPoint</div></li>
+              <li class="resume-item"><strong>Basic Design</strong><div class="muted">Canva, Lightroom</div></li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="contact" class="card" style="margin-top:18px">
+          <div class="section-title">Contact</div>
+          <div class="contact-item"><strong>Email:</strong><div>Calmadavicjohn@gmail.com</div></div>
+          <div class="contact-item" style="margin-top:8px"><strong>Phone:</strong><div>+63 915 083 9742</div></div>
+          <div class="contact-item" style="margin-top:8px"><strong>Location:</strong><div>Philippines</div></div>
+
+          <div style="margin-top:12px">
+            <a href="mailto:Calmadavicjohn@gmail.com" style="display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:white;text-decoration:none;transition:background 0.3s ease, transform 0.3s ease;">Email Me</a>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:18px">
+          <div class="section-title">Certificates / Awards</div>
+          <p class="muted"></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <div>Built by Vic John Calmada</div>
+    </footer>
+  </div>
+
+  <script>
+    // Fade-in on scroll effect
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach(card => observer.observe(card));
+  </script>
+</body>
+</html>
